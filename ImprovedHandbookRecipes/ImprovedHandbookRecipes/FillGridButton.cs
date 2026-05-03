@@ -232,7 +232,7 @@ public class FillGridButton : ButtonRTC {
             return null;
         }
 
-        int CurrentSets(GridRecipeIngredient ingr, ItemSlot slot) {
+        int CurrentSets(CraftingRecipeIngredient ingr, ItemSlot slot) {
             if (ingr == null) return -1;
             if (ingr.IsTool) return (slot.StackSize > 0) ? -1 : 0;
             return slot.StackSize / ingr.Quantity;
@@ -263,7 +263,7 @@ public class FillGridButton : ButtonRTC {
         }
    }
 
-    private static bool Satisfies(GridRecipeIngredient ingredient, ItemStack invStack) 
+    private static bool Satisfies(CraftingRecipeIngredient ingredient, ItemStack invStack)
         => invStack?.StackSize > 0
         && ingredient != null
         && ingredient.SatisfiesAsIngredient(invStack, false)

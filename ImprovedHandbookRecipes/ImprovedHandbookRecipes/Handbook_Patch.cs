@@ -14,7 +14,7 @@ using Vintagestory.GameContent;
 namespace ImprovedHandbookRecipes;
 [HarmonyPatch]
 public static class Handbook_Patch {
-    private static GridRecipeIngredient current = null;
+    private static CraftingRecipeIngredient current = null;
     private static bool interceptScroll = false;
     private static int indexChange = 0;
     private static ICoreClientAPI api;
@@ -39,7 +39,7 @@ public static class Handbook_Patch {
     private static IEnumerable<CodeInstruction> Slideshow_Transpiler(IEnumerable<CodeInstruction> original, Type type) {
         var getElement = AccessTools.Method(typeof(GridRecipe),
                                             nameof(GridRecipe.GetElementInGrid),
-                                            generics: new Type[] { typeof(GridRecipeIngredient) });
+                                            generics: new Type[] { typeof(CraftingRecipeIngredient) });
         var pointInside = AccessTools.Method(typeof(Rectangled),
                                              nameof(Rectangled.PointInside));
         bool isGrid = type == typeof(SlideshowGridRecipeTextComponent);
