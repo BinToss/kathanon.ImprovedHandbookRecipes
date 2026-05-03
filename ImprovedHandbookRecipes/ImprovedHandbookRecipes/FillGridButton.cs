@@ -68,7 +68,7 @@ public class FillGridButton : ButtonRTC {
             .ToDictionary(x => x.Key, x => available.Sum(y => x.Matches(y.Key) ? y.Value : 0));
 
         var recipe = recipes
-            .FirstOrDefault(x => x.Matches(player, input, 3));
+            .FirstOrDefault(x => x.Matches(player, api.World, input, 3));
         // TODO: If multiple matches, favor those matching content already present in grid?
         recipe ??= recipes
             .FirstOrDefault(CanMake);
