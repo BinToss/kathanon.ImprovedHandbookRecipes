@@ -1,0 +1,8 @@
+<Project>
+  <PropertyGroup>
+    <VINTAGE_STORY>$(VINTAGE_STORY)</VINTAGE_STORY>
+    <VINTAGE_STORY Condition="'$(VINTAGE_STORY)' == ''">
+    <!-- your Vintage Story game path here -->
+    </VINTAGE_STORY>
+  </PropertyGroup>
+</Project>
