@@ -62,7 +62,7 @@ public class FillGridButton : ButtonRTC {
             .ToDictionary(x => x.Key, x => x.Sum(y => y.StackSize));
         var wildcards = recipes
             .SelectMany(x => x.Ingredients.Values)
-            .Where(x => x.IsWildCard)
+            .Where(x => x.MatchingType == EnumRecipeMatchType.Wildcard)
             .Select(x => new IngredientCode(x))
             .DistinctBy(x => x.Key)
             .ToDictionary(x => x.Key, x => available.Sum(y => x.Matches(y.Key) ? y.Value : 0));
@@ -92,13 +92,13 @@ public class FillGridButton : ButtonRTC {
             bool possible = ingredients
                 .GroupBy(x => new IngredientCode(x))
                 .All(y => (y.Key.Wild ? wildcards[y.Key.Key] : available.GetValueOrDefault(y.Key.Code)) >= y.Sum(z => z.Quantity));
-            if (!possible || !ingredients.Any(x => x.IsWildCard || x.IsTool)) {
+            if (!possible || !ingredients.Any(x => x.MatchingType == EnumRecipeMatchType.Wildcard || x.IsTool)) {
                 return possible;
             }
 
             Dictionary<ItemSlot, int> used = new();
-            var ingredientsWildLast = ingredients.Where(x => !x.IsWildCard)
-                .Concat(ingredients.Where(x => x.IsWildCard));
+            var ingredientsWildLast = ingredients.Where(x => !(x.MatchingType == EnumRecipeMatchType.Wildcard))
+                .Concat(ingredients.Where(x => x.MatchingType == EnumRecipeMatchType.Wildcard));
             foreach (var ingredient in ingredientsWildLast) {
                 int need = ingredient.Quantity;
                 foreach (var slot in input.Concat(stacks)) {
@@ -279,9 +279,10 @@ public class FillGridButton : ButtonRTC {
         public readonly AssetLocation Code;
         public readonly bool Wild;
 
-        public IngredientCode(CraftingRecipeIngredient ingredient) {
+        public IngredientCode(CraftingRecipeIngredient ingredient)
+        {
             Code = ingredient.Code;
-            Wild = ingredient.IsWildCard;
+            Wild = ingredient.MatchingType == EnumRecipeMatchType.Wildcard;
             if (Wild) {
                 include = ingredient.AllowedVariants;
                 exclude = ingredient.SkipVariants;
