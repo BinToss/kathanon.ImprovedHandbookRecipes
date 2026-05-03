@@ -86,7 +86,7 @@ public class FillGridButton : ButtonRTC {
 
 
         bool CanMake(GridRecipe recipe) {
-            var ingredients = recipe.resolvedIngredients
+            var ingredients = recipe.ResolvedIngredients
                 .Where(x => x != null)
                 .ToArray();
             bool possible = ingredients
@@ -118,7 +118,7 @@ public class FillGridButton : ButtonRTC {
     private bool AddIngredients(ItemSlot[] input, GridRecipe recipe, List<ItemSlot> available) {
         List<(ItemSlot from, ItemSlot to, int n)> ops = new();
         Dictionary<ItemSlot, int> remaining = new();
-        var ingredients = recipe.resolvedIngredients;
+        var ingredients = recipe.ResolvedIngredients;
         
         // Match up grid contents to recipe and empty non-matching
         if (recipe.Shapeless) {
