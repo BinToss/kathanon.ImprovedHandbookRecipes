@@ -78,7 +78,7 @@ public static class Handbook_Patch {
         int length;
         GridRecipeAndUnnamedIngredients[] list = null;
         if (component is SlideshowGridRecipeTextComponent grid) {
-            list = grid.GridRecipesAndUnIn;
+            list = grid.GridRecipesAndUnnamedIngredients;
             length = list.Length;
         } else {
             length = (component as SlideshowItemstackTextComponent).Itemstacks.Length;
@@ -96,14 +96,14 @@ public static class Handbook_Patch {
 
 
         static bool AnyUnnamed(GridRecipeAndUnnamedIngredients x)
-            => x.unnamedIngredients?.Any(y => y.Value.Length > 1) ?? false;
+            => x.UnnamedIngredients?.Any(y => y.Value.Length > 1) ?? false;
     }
 
     private static void UpdateSecondCounter(int index, ref int counter, GridRecipeAndUnnamedIngredients[] list) {
         counter += indexChange;
 
         if (counter < 0) {
-            var ingredient = (index >= 0 && index < list.Length) ? list[index].unnamedIngredients : null;
+            var ingredient = (index >= 0 && index < list.Length) ? list[index].UnnamedIngredients: null;
             if (ingredient == null) {
                 counter = 0;
                 return;
@@ -223,7 +223,7 @@ public static class Handbook_Patch {
         for (int i = 0; i < components.Count; i++) {
             var component = components[i];
             if (component is SlideshowGridRecipeTextComponent prev) {
-                var recipes = prev.GridRecipesAndUnIn;
+                var recipes = prev.GridRecipesAndUnnamedIngredients;
                 buttons[0] = new FillGridButton(api, false, recipes);
                 buttons[1] = new FillGridButton(api, true,  recipes);
                 components.InsertRange(i + 1, buttons);
