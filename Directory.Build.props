@@ -1,11 +1,11 @@
 <Project>
+  <!-- Define your Vintage Story game path as VINTAGE_STORY in ./Directory.Build.prop.user
+  or via environment variables
+   -->
+  <Import Condition="Exists('./Directory.Build.prop.user')"
+    Project="./Directory.Build.prop.user" />
   <PropertyGroup>
     <VINTAGE_STORY>$(VINTAGE_STORY)</VINTAGE_STORY>
-    <VINTAGE_STORY Condition="'$(VINTAGE_STORY)' == ''">
-      <!-- your Vintage Story game path here -->
-      
-      <!-- and for the love of Dave, do NOT git-add your personalized path! -->
-    </VINTAGE_STORY>
     <VINTAGE_STORY>$(VINTAGE_STORY.Trim())</VINTAGE_STORY>
   </PropertyGroup>
 </Project>
