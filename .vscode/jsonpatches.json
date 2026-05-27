@@ -1,0 +1,167 @@
+{
+  "$schema": "https://json-schema.org/draft-04/schema#",
+  "title": "MaltiezJsonPatch[]",
+  "type": "array",
+  "items": {
+    "$ref": "#/definitions/JsonPatch"
+  },
+  "definitions": {
+    "JsonPatch": {
+      "title": "JsonPatch",
+      "type": "object",
+      "properties": {
+        "dependsOn": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/JsonPatchModDependence"
+          }
+        },
+        "enabled": {
+          "type": "boolean"
+        },
+        "file": {
+          "anyOf": [
+            {
+              "$ref": "https://raw.githubusercontent.com/SirNoName2705/VintelliSchemas/master/SchemaReleases/current/.schemas/lib/assets/patch-paths.json#"
+            },
+            {
+              "type": "string"
+            }
+          ]
+        },
+        "fromPath": {
+          "type": "string",
+          "description": "needs to be used with op: Move or op: Copy"
+        },
+        "op": {
+          "$ref": "#/definitions/JsonPatchOperationType"
+        },
+        "path": {
+          "type": "string"
+        },
+        "side": {
+          "oneOf": [
+            {
+              "type": "null"
+            },
+            {
+              "$ref": "#/definitions/EnumAppSide"
+            }
+          ]
+        },
+        "value": {
+          "$ref": "https://raw.githubusercontent.com/SirNoName2705/VintelliSchemas/master/SchemaReleases/current/.schemas/lib/definitions/JsonObject.json#"
+        }
+      },
+      "if": {
+        "properties": {
+          "op": {
+            "pattern": "[Cc][Oo][Pp][Yy]|[Mm][Oo][Vv][Ee]"
+          }
+        }
+      },
+      "then": {
+        "required": [
+          "fromPath"
+        ]
+      },
+      "else": {
+        "properties": {
+          "fromPath": {
+            "not": {}
+          }
+        }
+      }
+    },
+    "JsonPatchModDependence": {
+      "title": "JsonPatchModDependence",
+      "type": "object",
+      "properties": {
+        "invert": {
+          "type": "boolean"
+        },
+        "modid": {
+          "anyOf": [
+            {
+              "$ref": "https://raw.githubusercontent.com/SirNoName2705/VintelliSchemas/master/SchemaReleases/current/.schemas/lib/assets/modids.json#"
+            },
+            {
+              "type": "string"
+            }
+          ]
+        }
+      }
+    },
+    "JsonPatchOperationType": {
+      "title": "JsonPatchOperationType",
+      "type": "string",
+      "description": "",
+      "anyOf": [
+        {
+          "title": "Add",
+          "default": "Add",
+          "pattern": "[Aa][Dd][Dd]"
+        },
+        {
+          "title": "AddEach",
+          "default": "AddEach",
+          "pattern": "[Aa][Dd][Dd][Ee][Aa][Cc][Hh]"
+        },
+        {
+          "title": "Remove",
+          "default": "Remove",
+          "pattern": "[Rr][Ee][Mm][Oo][Vv][Ee]"
+        },
+        {
+          "title": "Replace",
+          "default": "Replace",
+          "pattern": "[Rr][Ee][Pp][Ll][Aa][Cc][Ee]"
+        },
+        {
+          "title": "Copy",
+          "default": "Copy",
+          "pattern": "[Cc][Oo][Pp][Yy]"
+        },
+        {
+          "title": "Move",
+          "default": "Move",
+          "pattern": "[Mm][Oo][Vv][Ee]"
+        },
+        {
+          "title": "AddMerge",
+          "default": "AddMerge",
+          "pattern": "[Aa][Dd][Dd][Mm][Ee][Rr][Gg][Ee]"
+        },
+        {
+
+        "title": "Expression",
+        "default":"Expression",
+        "pattern": "[Ee][Xx][Pp][Rr][Ee][Ss][Ss][Ii][Oo][Nn]"
+        }
+      ]
+    },
+    "EnumAppSide": {
+      "title": "EnumAppSide",
+      "type": "string",
+      "description": "",
+      "x-enumFlags": true,
+      "anyOf": [
+        {
+          "title": "Server",
+          "default": "Server",
+          "pattern": "[Ss][Ee][Rr][Vv][Ee][Rr]"
+        },
+        {
+          "title": "Client",
+          "default": "Client",
+          "pattern": "[Cc][Ll][Ii][Ee][Nn][Tt]"
+        },
+        {
+          "title": "Universal",
+          "default": "Universal",
+          "pattern": "[Uu][Nn][Ii][Vv][Ee][Rr][Ss][Aa][Ll]"
+        }
+      ]
+    }
+  }
+}
