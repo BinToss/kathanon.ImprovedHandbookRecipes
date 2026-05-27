@@ -1,0 +1,4 @@
+<Solution>
+  <Project Path="ImprovedHandbookRecipes/ImprovedHandbookRecipes/ImprovedHandbookRecipes.csproj" />
+  <Project Path="ImprovedHandbookRecipes/ZZCakeBuild/CakeBuild.csproj" />
+</Solution>
