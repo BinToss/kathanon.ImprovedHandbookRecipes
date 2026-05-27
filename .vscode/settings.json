@@ -1,0 +1,8 @@
+{
+  "json.schemaDownload.trustedDomains": {
+    "https://moddbcdn.vintagestory.at/schema/modinfo.latest.json": true
+  },
+  "json5.schemaDownload.trustedDomains": {
+    "https://moddbcdn.vintagestory.at/schema/modinfo.latest.json": true
+  }
+}
